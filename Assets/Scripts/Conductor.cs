@@ -51,6 +51,12 @@ public class Conductor : MonoBehaviour
     private float perfectEarlyTime;
     private HitFeedback feedback;
 
+    /// <summary>
+    /// Fires every time a beat occurs. Subscribe to this event in order 
+    /// to have things happen whenever a beat is hit.
+    /// </summary>
+    public System.EventHandler BeatOccurred;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +91,9 @@ public class Conductor : MonoBehaviour
         if (songPosition > lastBeatSeconds + secondsPerBeat)
         {
             lastBeatSeconds += secondsPerBeat;
+
+            // Beat occurred
+            BeatOccurred.Invoke(this, System.EventArgs.Empty);
         }
     }
 
