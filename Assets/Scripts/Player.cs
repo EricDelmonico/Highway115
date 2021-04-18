@@ -31,11 +31,10 @@ public class Player : MonoBehaviour
 		{Control.SHOOT, KeyCode.Space}
 	};
 	
-
     // Start is called before the first frame update
     void Start()
     {
-		Forward = new Vector2(1, 1);
+		Forward = new Vector2(0, 1);
 		right = new Vector2(Forward.y, Forward.x);
 	}
 
