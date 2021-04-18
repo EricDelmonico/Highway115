@@ -22,9 +22,6 @@ public class Player : MonoBehaviour
 	//int hp;
 	public int maxDamage;
 
-	//so player knows what projectiles to not take damage from
-	List<GameObject> shotProjectiles = new List<GameObject>();
-
 	//controlls for easier editting
 	public Dictionary<Control, KeyCode> controls = new Dictionary<Control, KeyCode>(){
 		{Control.UP, KeyCode.UpArrow},
@@ -63,12 +60,10 @@ public class Player : MonoBehaviour
 		GameObject bullet = Instantiate(projectile);
 
 		bullet.transform.position = this.transform.position + (Vector3)direction;
-
-		//so player knows not to take damage from it.
-		shotProjectiles.Add(bullet); 
 		
-		//bullet.GetComponent<Projectile>.direction = this.direction;
-		//bullet.GetComponent<Projectile>.damage = maxDamage - beatAccuracy;
+		bullet.GetComponent<Projectile>.direction = this.direction;
+		bullet.GetComponent<Projectile>.damage = maxDamage - beatAccuracy;
+		
 		energy--;
 	}
 
@@ -77,30 +72,23 @@ public class Player : MonoBehaviour
 	{
         if(Input.GetKey(controls[Control.UP]))
 		{
-			direction = Forward;//transform.Translate(Forward);
+			direction = Forward;
 			Move();
-			//energy += (int)conductor.CheckBeatAccuracy() - 4;
 		}
         else if(Input.GetKey(controls[Control.DOWN]))
 		{
-			direction = -Forward;//transform.Translate(-Forward);'
+			direction = -Forward;
 			Move();
-			//energy += (int)conductor.CheckBeatAccuracy() - 4;
 		}
 		else if (Input.GetKey(controls[Control.LEFT]))
 		{
-			direction = -right; //transform.Translate(-right);
+			direction = -right; 
 			Move();
-
-			//energy += (int)conductor.CheckBeatAccuracy() - 4;
-
 		}
 		else if(Input.GetKey(controls[Control.RIGHT]))
 		{
-			direction = right; //transform.Translate(right);
+			direction = right;
 			Move();
-
-			//energy += (int)conductor.CheckBeatAccuracy() - 4;
 		}
 		else if (Input.GetKey(controls[Control.SHOOT]))
 		{
@@ -121,27 +109,5 @@ public class Player : MonoBehaviour
 	void Die()
 	{
 		//dies
-	}
-
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		GameObject other = collision.otherCollider.gameObject;
-
-		//if the other collision is a player projectile
-		if (shotProjectiles.Contains(other)) return;
-
-		Projectile otherProjectile = other.GetComponent<Projectile>();
-		//Enemy otherEnemy = other.GetComponent<Enemy>();
-
-		//hit by a projectile or enemy
-		//perhaps check the tags instead
-		if (otherProjectile) //&& other.origin != gameObject
-		{
-			energy -= otherProjectile.damage;
-		}
-		/*else if (otherEnemy)
-		{
-			energy -= otherEnemy.damage; //?
-		}*/
 	}
 }
