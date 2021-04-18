@@ -6,7 +6,7 @@ public class ConductorCreator : MonoBehaviour
 {
     public GameObject conductorPrefab;
 
-    private void Start()
+    private void Awake()
     {
         if (conductorPrefab == null)
         {

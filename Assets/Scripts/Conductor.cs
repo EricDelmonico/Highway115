@@ -13,17 +13,17 @@ public enum HitFeedback
 
 public class Conductor : MonoBehaviour
 {
-    private static GameObject instance;
+    private static Conductor instance;
     /// <summary>
     /// Creates a conductor from the passed in prefab
     /// </summary>
     /// <param name="prefab">The conductor prefab</param>
     /// <returns>The created conductor</returns>
-    public static GameObject CreateInstance(GameObject prefab) => (instance = Instantiate(prefab));
+    public static Conductor CreateInstance(GameObject prefab) => (instance = Instantiate(prefab).GetComponent<Conductor>());
     /// <summary>
     /// The existing conductor
     /// </summary>
-    public static GameObject Instance => instance ?? 
+    public static Conductor Instance => instance ?? 
         throw new System.InvalidOperationException("Conductor was never created. " +
             "Check ConductorCreator or add one to the scene if one doesn't exist.");
 
@@ -55,7 +55,7 @@ public class Conductor : MonoBehaviour
     /// Fires every time a beat occurs. Subscribe to this event in order 
     /// to have things happen whenever a beat is hit.
     /// </summary>
-    public System.EventHandler BeatOccurred;
+    public event System.EventHandler BeatOccurred;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +93,7 @@ public class Conductor : MonoBehaviour
             lastBeatSeconds += secondsPerBeat;
 
             // Beat occurred
-            BeatOccurred.Invoke(this, System.EventArgs.Empty);
+            BeatOccurred?.Invoke(this, System.EventArgs.Empty);
         }
     }
 
