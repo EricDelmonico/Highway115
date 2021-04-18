@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
 	void Move()
 	{
 		//Movement stuff
-		//todo slerp it :P
+		int beatAccuracy = (int)conductor.CheckBeatAccuracy();
+		energy += 3-beatAccuracy;
 		transform.position += (Vector3)direction * speed;
 	}
 
