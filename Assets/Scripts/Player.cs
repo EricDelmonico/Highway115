@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
 	GameObject projectile;
 	int energy;
+	//int hp;
 	public int maxDamage;
 
 	//so player knows what projectiles to not take damage from
@@ -60,6 +61,8 @@ public class Player : MonoBehaviour
 		if (beatAccuracy == 3) return;
 
 		GameObject bullet = Instantiate(projectile);
+
+		bullet.transform.position = this.transform.position + (Vector3)direction;
 
 		//so player knows not to take damage from it.
 		shotProjectiles.Add(bullet); 
@@ -103,6 +106,21 @@ public class Player : MonoBehaviour
 		{
 			Shoot();
 		}
+	}
+
+	void takeDamage(int damage)
+	{
+		energy -= damage;
+		if(energy < 0)
+		{
+			Die();
+		}
+
+	}
+
+	void Die()
+	{
+		//dies
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
