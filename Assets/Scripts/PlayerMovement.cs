@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Tilemap floor;
     [SerializeField]
     private Tilemap collideable;
+    [SerializeField]
+    private Tilemap props;
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CanMove(Vector2 direction)
     {
         Vector3Int gridPosition = floor.WorldToCell(transform.position + (Vector3)direction);
-        if (!floor.HasTile(gridPosition) || collideable.HasTile(gridPosition))
+        if (!floor.HasTile(gridPosition) || collideable.HasTile(gridPosition) || props.HasTile(gridPosition))
         {
             return false;
         }
