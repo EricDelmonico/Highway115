@@ -15,12 +15,38 @@ public class Enemy : MonoBehaviour
     public int health;
     private int currentHealth;
 
+    // holds the 8 cardinal directions
+    protected List<Vector2> cardinalDirections;
+
+    [Tooltip("How many beats before the enemy does something")]
+    public int beatsBetweenActions = 1;
+    private int beatsUntilNextAction;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        cardinalDirections = new List<Vector2>();
+        // N
+        cardinalDirections.Add(new Vector2(0, 1));
+        // S
+        cardinalDirections.Add(new Vector2(0, -1));
+        // E
+        cardinalDirections.Add(new Vector2(1, 0));
+        // W
+        cardinalDirections.Add(new Vector2(-1, 0));
+        // NE
+        cardinalDirections.Add(new Vector2(1, 1).normalized);
+        // SE
+        cardinalDirections.Add(new Vector2(1, -1).normalized);
+        // SW
+        cardinalDirections.Add(new Vector2(-1, -1).normalized);
+        // NW
+        cardinalDirections.Add(new Vector2(-1, 1).normalized);
+
         Conductor.Instance.GetComponent<Conductor>().BeatOccurred += OnBeat;
 
         currentHealth = health;
+        beatsUntilNextAction = beatsBetweenActions;
     }
 
     /// <summary>
@@ -35,9 +61,27 @@ public class Enemy : MonoBehaviour
         {
             throw new System.NullReferenceException($"'{gameObject.name}' does not have a reference to the player.");
         }
-        if (Vector2.Distance(this.transform.position, player.transform.position) < projectileRange)
+
+        if (beatsUntilNextAction <= 0)
         {
-            FireProjectile(((Vector2)(player.transform.position - this.transform.position)).normalized);
+            beatsUntilNextAction = beatsBetweenActions;
+            TakeAction();
+        }
+    }
+
+    private void TakeAction()
+    {
+        // Whether the player is in the line of fire
+        bool playerInLoF = false;
+        Vector2 directionToFire = Vector2.zero;
+        for (int i = 0; i < cardinalDirections.Count && !playerInLoF; i++)
+        {
+            directionToFire = cardinalDirections[i];
+            playerInLoF = Physics2D.Raycast(transform.position, directionToFire * projectileRange);
+        }
+        if (playerInLoF)
+        {
+            FireProjectile(directionToFire);
         }
         // enemy needs to close the distance
         else

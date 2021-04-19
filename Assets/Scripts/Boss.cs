@@ -10,8 +10,6 @@ public class Boss : Enemy
         FireInSpiral,
     }
 
-    // holds the 8 cardinal directions
-    private List<Vector2> cardinalDirections;
     // Holds amountOfProjectilesToShootInSpiral of directions in the unit circle, equally spaced.
     private List<Vector2> unitCircleDirections;
     // Long name but it does what it says lol
@@ -21,24 +19,6 @@ public class Boss : Enemy
 
     protected override void Start()
     {
-        cardinalDirections = new List<Vector2>();
-        // N
-        cardinalDirections.Add(new Vector2(0, 1));
-        // S
-        cardinalDirections.Add(new Vector2(0, -1));
-        // E
-        cardinalDirections.Add(new Vector2(1, 0));
-        // W
-        cardinalDirections.Add(new Vector2(-1, 0));
-        // NE
-        cardinalDirections.Add(new Vector2(1, 1).normalized);
-        // SE
-        cardinalDirections.Add(new Vector2(1, -1).normalized);
-        // SW
-        cardinalDirections.Add(new Vector2(-1, -1).normalized);
-        // NW
-        cardinalDirections.Add(new Vector2(-1, 1).normalized);
-
         // Fill unit circle directions
         unitCircleDirections = new List<Vector2>();
         for (float i = 0; i < 2 * Mathf.PI; i += 2 * Mathf.PI / amountOfProjectilesToShootInSpiral)
