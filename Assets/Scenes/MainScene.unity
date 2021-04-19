@@ -162,7 +162,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
 --- !u!61 &366597363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
 --- !u!61 &805032342
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2080,7 +2080,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
 --- !u!61 &1155980444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2310,7 +2310,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2498,7 +2498,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
 --- !u!61 &1457843990
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2564,7 +2564,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4594,7 +4594,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4dc3cbb4b7b94cf48954d66c6d3564d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -24076,7 +24076,7 @@ MonoBehaviour:
   projectileRange: 222
   health: 10
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
   amountOfProjectilesToShootInSpiral: 8
   alertRadius: 4
   beatsUntilBossAction: 16
@@ -24100,7 +24100,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 2
+  beatsBetweenActions: 1
 --- !u!61 &1940642472
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24166,7 +24166,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 22dcdf2349359a04088e1852f6cbb8e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -24323,7 +24323,7 @@ MonoBehaviour:
   projectileRange: 200
   health: 3
   power: 3
-  beatsBetweenActions: 1
+  beatsBetweenActions: 2
 --- !u!61 &1977541558
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24389,7 +24389,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
