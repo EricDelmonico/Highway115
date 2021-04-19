@@ -2,13 +2,21 @@
     "name": "ControlsInput",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Player",
             "id": "358861a1-0348-415a-9a67-8b54772e2c77",
             "actions": [
                 {
                     "name": "Move",
                     "type": "PassThrough",
                     "id": "84eaa1d0-4d35-465f-ad1b-c0728b7b9961",
+                    "expectedControlType": "Vector2",
+                    "processors": "NormalizeVector2",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Shoot",
+                    "type": "PassThrough",
+                    "id": "80ddf881-50d7-42ad-b627-068b1b8a214a",
                     "expectedControlType": "Vector2",
                     "processors": "NormalizeVector2",
                     "interactions": "Press"
@@ -67,6 +75,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Shoot Keys",
+                    "id": "c94c9ac5-12e1-424a-b043-21e3f2e259b4",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "a2c25935-b855-40a8-bbd5-68a56d039ad5",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "bab0d13a-3398-48a3-b45f-09094366be42",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "70621df0-fa14-457d-b9e2-6444e5e6fd51",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ef21c350-32bd-40e1-8ead-8f70b47691e5",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

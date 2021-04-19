@@ -396,19 +396,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &515700477
-BoxCollider:
+--- !u!61 &515700477
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515700476}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!23 &515700478
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -483,9 +496,9 @@ GameObject:
   - component: {fileID: 728382465}
   - component: {fileID: 728382464}
   - component: {fileID: 728382463}
-  - component: {fileID: 728382462}
   - component: {fileID: 728382461}
-  m_Layer: 0
+  - component: {fileID: 728382462}
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,19 +521,33 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5958479399073427680, guid: e97129c7a0016f04199109945ef15c13, type: 3}
   projectileRange: 5
   health: 5
---- !u!65 &728382462
-BoxCollider:
+  beatsBetweenActions: 1
+--- !u!61 &728382462
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728382460}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999999, y: 0.9999999}
+  m_EdgeRadius: 0
 --- !u!23 &728382463
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -578,7 +605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728382460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.13, y: 3.22, z: 0}
+  m_LocalPosition: {x: 3.65, y: 2.64, z: 0}
   m_LocalScale: {x: 1.2207, y: 1.2207, z: 1.2207}
   m_Children: []
   m_Father: {fileID: 0}
@@ -724,7 +751,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5958479399073427680, guid: e97129c7a0016f04199109945ef15c13, type: 3}
   projectileRange: 5
   health: 10
+  beatsBetweenActions: 1
   amountOfProjectilesToShootInSpiral: 10
+  alertRadius: 0
   beatsUntilBossAction: 16
 --- !u!65 &1487939221
 BoxCollider:

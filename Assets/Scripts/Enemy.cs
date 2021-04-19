@@ -1,9 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private Tilemap floor;
+    [SerializeField]
+    private Tilemap collideable;
+    [SerializeField]
+    private Tilemap props;
+
     // The player's gameobject
     public GameObject player;
 
@@ -14,6 +22,8 @@ public class Enemy : MonoBehaviour
 
     public int health;
     private int currentHealth;
+
+    public int power = 3;
 
     // holds the 8 cardinal directions
     protected List<Vector2> cardinalDirections;
@@ -34,14 +44,16 @@ public class Enemy : MonoBehaviour
         cardinalDirections.Add(new Vector2(1, 0));
         // W
         cardinalDirections.Add(new Vector2(-1, 0));
-        // NE
-        cardinalDirections.Add(new Vector2(1, 1).normalized);
-        // SE
-        cardinalDirections.Add(new Vector2(1, -1).normalized);
-        // SW
-        cardinalDirections.Add(new Vector2(-1, -1).normalized);
-        // NW
-        cardinalDirections.Add(new Vector2(-1, 1).normalized);
+
+        // TODO: Figure out why diagonals don't work...
+        //// NE
+        //cardinalDirections.Add(new Vector2(1, 1));
+        //// SE
+        //cardinalDirections.Add(new Vector2(1, -1));
+        //// SW
+        //cardinalDirections.Add(new Vector2(-1, -1));
+        //// NW
+        //cardinalDirections.Add(new Vector2(-1, 1));
 
         Conductor.Instance.GetComponent<Conductor>().BeatOccurred += OnBeat;
 
@@ -67,17 +79,21 @@ public class Enemy : MonoBehaviour
             beatsUntilNextAction = beatsBetweenActions;
             TakeAction();
         }
+
+        beatsUntilNextAction -= 1;
     }
 
     private void TakeAction()
     {
         // Whether the player is in the line of fire
         bool playerInLoF = false;
+        RaycastHit2D hit;
         Vector2 directionToFire = Vector2.zero;
         for (int i = 0; i < cardinalDirections.Count && !playerInLoF; i++)
         {
             directionToFire = cardinalDirections[i];
-            playerInLoF = Physics2D.Raycast(transform.position, directionToFire * projectileRange);
+            hit = Physics2D.Raycast(transform.position, directionToFire * projectileRange);
+            playerInLoF = hit.collider.gameObject.tag == "Player";
         }
         if (playerInLoF)
         {
@@ -86,13 +102,30 @@ public class Enemy : MonoBehaviour
         // enemy needs to close the distance
         else
         {
-            Move();
+            Move(cardinalDirections[Random.Range(0, 4)]);
         }
     }
 
-    protected void Move()
+    private void Move(Vector2 direction)
     {
-        // ?
+        if (CanMove(direction))
+        {
+            transform.position += (Vector3)direction;
+        }
+    }
+
+    private bool CanMove(Vector2 direction)
+    {
+        Vector3Int gridPosition = floor.WorldToCell(transform.position + (Vector3)direction);
+        if (!floor.HasTile(gridPosition) || collideable.HasTile(gridPosition) || props.HasTile(gridPosition))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 
     /// <summary>
@@ -106,7 +139,8 @@ public class Enemy : MonoBehaviour
         {
             GameObject newProj = Instantiate(projectilePrefab);
             newProj.transform.position = this.transform.position;
-            newProj.GetComponent<ProjectilePrototype>().direction = direction;
+            newProj.GetComponent<Projectile>().direction = direction;
+            newProj.GetComponent<Projectile>().power = power;
         }
     }
 
@@ -127,5 +161,10 @@ public class Enemy : MonoBehaviour
     protected void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Conductor.Instance.GetComponent<Conductor>().BeatOccurred -= OnBeat;
     }
 }

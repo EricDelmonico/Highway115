@@ -47,7 +47,7 @@ public class Boss : Enemy
         bool bossBehaviors = currentBeatsUntlBossAction <= 0;
 
         // If the boss hasn't been alerted, do nothing
-        if (Vector2.Distance(transform.position, player.transform.position) < alertRadius)
+        if (Vector2.Distance(transform.position, player.transform.position) > alertRadius)
         {
             return;
         }

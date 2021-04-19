@@ -5,10 +5,13 @@ using UnityEngine;
 // TODO: could probably be named better...?
 public enum HitFeedback
 {
-    Perfect,
-    Great,
-    Early,
-    Late
+    // On beat is even
+    Perfect = 0,
+    Great = 2,
+
+    // Off beat is odd
+    Early = 1,
+    Late = 3
 }
 
 public class Conductor : MonoBehaviour
@@ -103,7 +106,8 @@ public class Conductor : MonoBehaviour
     /// where the beats are. This is done by the player. Result is stored in
     /// <see cref="beatOffset"/>
     /// </summary>
-    public void CalibrateOffset()
+    /// <returns>true if calibration is finished</returns>
+    public bool CalibrateOffset()
     {
         if (validationNums.Count < beatsForCalibration)
         {
@@ -111,6 +115,7 @@ public class Conductor : MonoBehaviour
             songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
             diff = songPosition - lastBeatSeconds;
             validationNums.Add(diff);
+            return false;
         }
         // Calibration is finished
         else
@@ -121,8 +126,9 @@ public class Conductor : MonoBehaviour
             //controls.Gameplay.Calibrate.performed -= CalibrateOffset;
             //controls.Gameplay.Calibrate.Disable();
 
-            // Clear so calibration can be done again whenever
-            validationNums.Clear();
+            // TODO?: Clear so calibration can be done again whenever
+            //validationNums.Clear();
+            return true;
         }
     }
 

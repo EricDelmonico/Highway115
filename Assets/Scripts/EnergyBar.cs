@@ -16,4 +16,9 @@ public class EnergyBar : MonoBehaviour
 
     [SerializeField]
     private Slider slider;
+
+    private void Start()
+    {
+        slider.value = slider.maxValue;
+    }
 }

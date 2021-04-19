@@ -11,6 +11,11 @@ public class Projectile : MonoBehaviour
     // ^^^ All set by creator (or prefab)
     //private int tileLength;
 
+    private void Start()
+    {
+        Conductor.Instance.BeatOccurred += OnBeat;
+    }
+
     /// <summary>
     /// Is supposed to be triggered once every beat by BeatOccurred, but I don't know how to do that.
     /// </summary>
@@ -27,23 +32,28 @@ public class Projectile : MonoBehaviour
         transform.position += direction; //Normalize(direction) + tileLength;
     }
 
-    /// <summary>
-    /// Does damage to target collisions
-    /// </summary>
-    /// <param name="collision"></param>
-    void OnCollisionEnter(Collision collision) 
+    private void OnDestroy()
+    {
+        Conductor.Instance.BeatOccurred -= OnBeat;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == target)
         {
             //collision.gameObject.GetComponent(Entity).Damage(power); // Shouldn't they both inherit from an entity class?
-            if(target == "Player")
+            if (target == "Player")
             {
-                collision.gameObject.GetComponent<Player>().takeDamage(power);
+                collision.gameObject.GetComponent<Player>().TakeDamage(power);
             }
             else
             {
                 collision.gameObject.GetComponent<Enemy>().Damage(power);
             }
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Obstacle")
+        {
             Destroy(gameObject);
         }
     }
