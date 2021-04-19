@@ -167,7 +167,12 @@ public class Player : MonoBehaviour
 				energyBar.Energy -= 1;
 				break;
         }
-		
+
+		if (energyBar.Energy <= 0)
+		{
+			Die();
+		}
+
 		if (CanMove(direction))
 		{
 			transform.position += (Vector3)direction;
