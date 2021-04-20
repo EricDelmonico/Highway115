@@ -30,7 +30,6 @@ SpriteAtlas:
       enableTightPacking: 1
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: e86a07f277a6a3948bc03109303a765f, type: 3}
     - {fileID: 2800000, guid: ff45f437ca8a70442b2d11d7cece0bcb, type: 3}
     totalSpriteSurfaceArea: 0
     bindAsDefault: 1
