@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         Conductor.Instance.BeatOccurred += OnBeat;
+        // Start moving instantly
+        StartLerpMovement(transform.position + direction * tilesPerBeat);
     }
 
     /// <summary>
