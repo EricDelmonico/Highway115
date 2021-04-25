@@ -40,6 +40,13 @@ public class Conductor : MonoBehaviour
     [Tooltip("How many beats before the offset is considered calibrated")]
     public int beatsForCalibration = 20;
 
+    [Tooltip("How long moving items in the scene will take to move.")]
+    /// <summary>
+    /// How long moving items in the scene will take to move. This is here to
+    /// keep the seconds to move consistent between all movable objects.
+    /// </summary>
+    public float secondsToMove = 0.1f;
+
     [Header("**Below stuff is only here for debug/visibility purposes. None of it needs to be edited**")]
     public float secondsPerBeat;
     public float songPosition; // in seconds
@@ -59,6 +66,11 @@ public class Conductor : MonoBehaviour
     /// to have things happen whenever a beat is hit.
     /// </summary>
     public event System.EventHandler BeatOccurred;
+
+    /// <summary>
+    /// Fires after all fields of the conductor have been initialized in the start method.
+    /// </summary>
+    public event System.EventHandler ConductorInitializationFinished;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +94,16 @@ public class Conductor : MonoBehaviour
         // Subject to change...
         perfectEarlyTime = allowedEarlyTime / 2;
         perfectLateTime = allowedLateTime / 2;
+
+        // After secondsPerBeat is initialized, make sure the time
+        // to move is less than the seconds in a beat with a reasonable buffer.
+        // Otherwise, movement would be a little broken.
+        if (secondsToMove > secondsPerBeat * 0.8f)
+        {
+            secondsToMove = secondsPerBeat * 0.8f;
+        }
+
+        RaiseConductorInitializationFinished();
     }
 
     // Update is called once per frame
@@ -98,7 +120,7 @@ public class Conductor : MonoBehaviour
                 lastBeatSeconds += secondsPerBeat;
 
                 // Beat occurred
-                BeatOccurred?.Invoke(this, System.EventArgs.Empty);
+                RaiseBeatOccured();
             }
         }
     }
@@ -124,10 +146,6 @@ public class Conductor : MonoBehaviour
         else
         {
             beatOffset = Avg(validationNums);
-
-            // TODO: when input is implemented, disable this method here.
-            //controls.Gameplay.Calibrate.performed -= CalibrateOffset;
-            //controls.Gameplay.Calibrate.Disable();
 
             // TODO?: Clear so calibration can be done again whenever
             //validationNums.Clear();
@@ -211,5 +229,21 @@ public class Conductor : MonoBehaviour
         GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
         GUI.Label(new Rect(0, 150, 500, 100), $"<size=20>Last beat seconds: {lastBeatSeconds}. </size>");
         GUI.EndGroup();
+    }
+
+    private void RaiseBeatOccured()
+    {
+        if (BeatOccurred != null)
+        {
+            BeatOccurred.Invoke(this, System.EventArgs.Empty);
+        }
+    }
+
+    private void RaiseConductorInitializationFinished()
+    {
+        if (ConductorInitializationFinished != null)
+        {
+            ConductorInitializationFinished.Invoke(this, System.EventArgs.Empty);
+        }
     }
 }
