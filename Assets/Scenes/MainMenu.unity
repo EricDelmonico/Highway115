@@ -662,9 +662,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648dbb81ac0677145864efd4686a5ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
   pauseMenu: {fileID: 0}
-  gameOverMenu: {fileID: 0}
-  enemiesMenu: {fileID: 0}
+  energyBar: {fileID: 0}
 --- !u!1 &411623775
 GameObject:
   m_ObjectHideFlags: 0
