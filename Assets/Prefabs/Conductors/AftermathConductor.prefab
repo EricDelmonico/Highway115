@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4008838127738875814}
   - component: {fileID: 4008838127738875813}
   m_Layer: 0
-  m_Name: Conductor
+  m_Name: AftermathConductor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,13 +47,15 @@ MonoBehaviour:
   bpm: 150
   allowedEarlyTime: 0.05
   allowedLateTime: 0.05
-  beatsForCalibration: 20
+  beatsForCalibration: 5
   secondsPerBeat: 0
   songPosition: 0
   timeWhenSongStarted: 0
+  musicSource: {fileID: 0}
   beatOffset: 0
   lastBeatSeconds: 0
   validationNums: []
+  isPaused: 0
 --- !u!82 &4008838127738875813
 AudioSource:
   m_ObjectHideFlags: 0

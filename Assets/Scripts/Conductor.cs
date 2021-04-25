@@ -44,7 +44,7 @@ public class Conductor : MonoBehaviour
     public float secondsPerBeat;
     public float songPosition; // in seconds
     public float timeWhenSongStarted;
-    private AudioSource musicSource;
+    public AudioSource musicSource;
     public float beatOffset; // Calibrated by the player
     public float lastBeatSeconds; // The time since song start at which the previous beat occured
     public List<float> validationNums;
@@ -87,16 +87,19 @@ public class Conductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //determine how many seconds since the song started
-        songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
-
-        // If this is true, a beat happened
-        if (songPosition > lastBeatSeconds + secondsPerBeat)
+        if (!Menu.isPaused)
         {
-            lastBeatSeconds += secondsPerBeat;
+            //determine how many seconds since the song started
+            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
 
-            // Beat occurred
-            BeatOccurred?.Invoke(this, System.EventArgs.Empty);
+            // If this is true, a beat happened
+            if (songPosition > lastBeatSeconds + secondsPerBeat)
+            {
+                lastBeatSeconds += secondsPerBeat;
+
+                // Beat occurred
+                BeatOccurred?.Invoke(this, System.EventArgs.Empty);
+            }
         }
     }
 
@@ -205,7 +208,7 @@ public class Conductor : MonoBehaviour
 
         GUI.BeginGroup(new Rect(0, 0, 500, 200));
         GUI.Label(new Rect(0, 50, 500, 200), $"<size=20>{feedback.ToString()}</size>");
-        GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {20 - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
+        GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
         GUI.Label(new Rect(0, 150, 500, 100), $"<size=20>Last beat seconds: {lastBeatSeconds}. </size>");
         GUI.EndGroup();
     }

@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
         Forward = new Vector2(0, 1);
         right = new Vector2(Forward.y, Forward.x);
 
-		controls.Player.Shoot.performed += ctx => Shoot(ctx.ReadValue<Vector2>());
 		controls.Player.Move.performed += Calibrate;
 	}
 
@@ -70,6 +69,8 @@ public class Player : MonoBehaviour
 	/// </summary>
 	void Shoot(Vector2 direction)
 	{
+		if (Menu.isPaused) return;
+
 		int beatAccuracy = (int)Conductor.Instance.CheckBeatAccuracy();
 
 		GameObject bullet = Instantiate(projectilePrefab);
@@ -127,7 +128,7 @@ public class Player : MonoBehaviour
 	void Die()
 	{
 		//dies--load game over
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(2);
 	}
 
 	#region Player Movement
@@ -141,17 +142,24 @@ public class Player : MonoBehaviour
 
 	private void Calibrate(UnityEngine.InputSystem.InputAction.CallbackContext _)
 	{
+		if (Menu.isPaused) return;
+
 		bool calibrated = Conductor.Instance.CalibrateOffset();
 
 		if (calibrated)
 		{
-			controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+			// Enable moving and shooting
+            controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+            controls.Player.Shoot.performed += ctx => Shoot(ctx.ReadValue<Vector2>());
+
 			controls.Player.Move.performed -= Calibrate;
 		}
 	}
 
 	private void Move(Vector2 direction)
 	{
+		if (Menu.isPaused) return;
+
 		HitFeedback feedback = Conductor.Instance.CheckBeatAccuracy();
 
         switch (feedback)

@@ -7,7 +7,7 @@ using TMPro;
 public class Menu : MonoBehaviour
 {
     private ControlsInput controls;
-    public bool isPaused = false;
+    public static bool isPaused = false;
     public GameObject pauseMenu;
     public EnergyBar energyBar;
     //public GameObject gameOverMenu;
@@ -65,6 +65,8 @@ public class Menu : MonoBehaviour
         Time.timeScale = 0f;
         energyBar.gameObject.SetActive(false);
         isPaused = true;
+        Conductor.Instance.musicSource.Pause();
+        AudioListener.pause = true;
     }
 
     public void Resume()
@@ -76,6 +78,8 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1f;
         energyBar.gameObject.SetActive(true);
         isPaused = false;
+        Conductor.Instance.musicSource.Play();
+        AudioListener.pause = false;
     }
 
     public void LoadMainMenu()
