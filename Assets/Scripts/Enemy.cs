@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class Enemy : MonoBehaviour
     public int aggroRange;
 
     public int health;
-    private int currentHealth;
 
     public int power = 3;
 
@@ -36,12 +36,12 @@ public class Enemy : MonoBehaviour
 	public Vector2 targetPosition;
 	private Queue<Vector2> path;
 
+    public EnergyBar healthBar;
+    public Slider healthSlider;
+
 	// Start is called before the first frame update
 	protected virtual void Start()
     {
-		projectileRange = 2;
-		aggroRange = 10;
-
         cardinalDirections = new List<Vector2>();
         // N
         cardinalDirections.Add(new Vector2(0, 1)); //0
@@ -64,7 +64,8 @@ public class Enemy : MonoBehaviour
 
         Conductor.Instance.GetComponent<Conductor>().BeatOccurred += OnBeat;
 
-        currentHealth = health;
+        healthSlider.maxValue = health;
+        healthBar.Energy = health;
         beatsUntilNextAction = beatsBetweenActions;
     }
 
@@ -192,9 +193,11 @@ public class Enemy : MonoBehaviour
     /// <param name="amount">amount of damage to do</param>
     public void Damage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        healthBar.Energy -= amount;
+        if (healthBar.Energy <= 0)
+        {
             Die();
+        }
     }
 
     /// <summary>
@@ -291,7 +294,7 @@ public class Enemy : MonoBehaviour
 
     // Fields needed for movement
     private bool moving = false;
-    private Vector3 targetPosition = Vector3.zero;
+    private Vector3 nextSquarePosition = Vector3.zero;
     private Vector3 startingPosition = Vector3.zero;
     private float currentSecondsMoved = 0;
     /// <summary>
@@ -306,13 +309,13 @@ public class Enemy : MonoBehaviour
             currentSecondsMoved += Time.deltaTime;
 
             float t = Mathf.Clamp(currentSecondsMoved / Conductor.Instance.secondsToMove, 0, 1);
-            transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            transform.position = Vector3.Lerp(startingPosition, nextSquarePosition, t);
 
             // Movement finished
             if (t == 1)
             {
                 moving = false;
-                targetPosition = Vector3.zero;
+                nextSquarePosition = Vector3.zero;
                 startingPosition = Vector3.zero;
                 currentSecondsMoved = 0;
             }
@@ -326,7 +329,7 @@ public class Enemy : MonoBehaviour
     private void StartLerpMovement(Vector3 targetPos)
     {
         startingPosition = transform.position;
-        targetPosition = targetPos;
+        nextSquarePosition = targetPos;
         moving = true;
     }
     #endregion

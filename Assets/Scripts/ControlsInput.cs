@@ -41,6 +41,14 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Trap"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b09d7f7-b0fa-4b44-bd4f-30615ef0e976"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -164,6 +172,17 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3476dbe8-f50f-4392-827c-ee6599bdb68c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -175,6 +194,7 @@ public class @ControlsInput : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
+        m_Player_Trap = m_Player.FindAction("Trap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +247,7 @@ public class @ControlsInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_PauseGame;
+    private readonly InputAction m_Player_Trap;
     public struct PlayerActions
     {
         private @ControlsInput m_Wrapper;
@@ -234,6 +255,7 @@ public class @ControlsInput : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
+        public InputAction @Trap => m_Wrapper.m_Player_Trap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -252,6 +274,9 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @PauseGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
+                @Trap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTrap;
+                @Trap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTrap;
+                @Trap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTrap;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -265,6 +290,9 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @Trap.started += instance.OnTrap;
+                @Trap.performed += instance.OnTrap;
+                @Trap.canceled += instance.OnTrap;
             }
         }
     }
@@ -274,5 +302,6 @@ public class @ControlsInput : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnTrap(InputAction.CallbackContext context);
     }
 }

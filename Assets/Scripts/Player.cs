@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
 
 	public EnergyBar energyBar;
 
+	public GameObject trapPrefab;
+
 	//int hp;
 	public int maxDamage = 2;
 
@@ -121,8 +123,25 @@ public class Player : MonoBehaviour
 			// Enable moving and shooting
             controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
             controls.Player.Shoot.performed += ctx => Shoot(ctx.ReadValue<Vector2>());
+			controls.Player.Trap.performed += ctx => PlaceTrap();
 
 			controls.Player.Move.performed -= Calibrate;
+		}
+	}
+
+    private void PlaceTrap()
+    {
+        GameObject newTrap = Instantiate(trapPrefab);
+		newTrap.transform.position = transform.position;
+
+		// TODO: Notify the player somehow??
+		if (energyBar.Energy > 6)
+        {
+			energyBar.Energy -= 5;
+			if (energyBar.Energy <= 0)
+			{
+				Die();
+			}
 		}
 	}
 
