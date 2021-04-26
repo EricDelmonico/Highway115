@@ -218,17 +218,20 @@ public class Conductor : MonoBehaviour
         return total / nums.Count;
     }
 
+    public bool showGUI = true;
     /// <summary>
     /// Some simple UI for debug purposes
     /// </summary>
     private void OnGUI()
     {
-
-        GUI.BeginGroup(new Rect(0, 0, 500, 200));
-        GUI.Label(new Rect(0, 50, 500, 200), $"<size=20>{feedback.ToString()}</size>");
-        GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
-        GUI.Label(new Rect(0, 150, 500, 100), $"<size=20>Last beat seconds: {lastBeatSeconds}. </size>");
-        GUI.EndGroup();
+        if (showGUI)
+        {
+            GUI.BeginGroup(new Rect(0, 0, 500, 200));
+            GUI.Label(new Rect(0, 50, 500, 200), $"<size=20>{feedback.ToString()}</size>");
+            GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
+            GUI.Label(new Rect(0, 150, 500, 100), $"<size=20>Last beat seconds: {lastBeatSeconds}. </size>");
+            GUI.EndGroup();
+        }
     }
 
     private void RaiseBeatOccured()

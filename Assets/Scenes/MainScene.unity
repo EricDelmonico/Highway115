@@ -563,7 +563,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 716907417732238468, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}
       propertyPath: m_Value
-      value: 20
+      value: 457
       objectReference: {fileID: 0}
     - target: {fileID: 716907417732238468, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}
       propertyPath: m_MaxValue
@@ -572,6 +572,10 @@ PrefabInstance:
     - target: {fileID: 716907417732238470, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}
       propertyPath: m_Name
       value: EnergyBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 716907417732238470, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 716907417732238471, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -720,7 +724,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -745,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 563642511}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 2.5000005, y: 2.5000005, z: 1}
   m_Children: []
   m_Father: {fileID: 1710797137}
   m_RootOrder: 0
@@ -3825,6 +3829,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1037671970830868507, guid: 673fd8a65a4d1a444bdd7903a15ab13f, type: 3}
   energyBar: {fileID: 1364177530}
   trapPrefab: {fileID: 3090377022372323525, guid: 980344682f063274ea611456cef7080f, type: 3}
+  frontSprite: {fileID: 21300000, guid: 3a0d2ec713856de43b621fc3440c40cd, type: 3}
+  leftSprite: {fileID: 21300000, guid: 89997195da8b4f941a1e0513715edb77, type: 3}
+  backSprite: {fileID: 21300000, guid: 2eb2b7436e8864c4a8b5d162664464b2, type: 3}
   maxDamage: 2
   floor: {fileID: 1838562197}
   collideable: {fileID: 1679572439}
@@ -23163,11 +23170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386245401447570374, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4386245401447570374, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15
+      value: -15.5
       objectReference: {fileID: 0}
     - target: {fileID: 4386245401447570374, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23228,6 +23235,10 @@ PrefabInstance:
     - target: {fileID: 4386245401447570378, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}
       propertyPath: alertRadius
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386245401447570378, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}
+      propertyPath: aggroRange
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36acdd6bc4fa19c4d9b21d4dc57b1fdf, type: 3}

@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ToggleGUI",
+                    "type": "Button",
+                    "id": "66d026ea-074b-4662-8c14-49b462f9aab8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -168,6 +176,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Trap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e5375eb-fbae-42a9-84b1-815ece80362c",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

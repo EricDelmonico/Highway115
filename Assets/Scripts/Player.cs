@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
 
 	public GameObject trapPrefab;
 
+	public Sprite frontSprite;
+	public Sprite leftSprite;
+	public Sprite backSprite;
+
 	//int hp;
 	public int maxDamage = 2;
 
@@ -56,6 +60,7 @@ public class Player : MonoBehaviour
         right = new Vector2(Forward.y, Forward.x);
 
 		controls.Player.Move.performed += Calibrate;
+		controls.Player.ToggleGUI.performed += (_) => Conductor.Instance.showGUI = !Conductor.Instance.showGUI;
 	}
 
 	//void Move()
@@ -71,7 +76,7 @@ public class Player : MonoBehaviour
 	/// </summary>
 	void Shoot(Vector2 direction)
 	{
-		if (Menu.isPaused) return;
+		if (Menu.isPaused || moving) return;
 
 		int beatAccuracy = (int)Conductor.Instance.CheckBeatAccuracy();
 
@@ -120,23 +125,63 @@ public class Player : MonoBehaviour
 
 		if (calibrated)
 		{
-			// Enable moving and shooting
-            controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-            controls.Player.Shoot.performed += ctx => Shoot(ctx.ReadValue<Vector2>());
+			// Enable moving and shooting, and change direction on moving and shooting
+			controls.Player.Move.performed += ctx =>
+			{
+				ChangeSpriteDirection(ctx.ReadValue<Vector2>());
+				Move(ctx.ReadValue<Vector2>());
+			};
+			controls.Player.Shoot.performed += ctx =>
+			{
+				ChangeSpriteDirection(ctx.ReadValue<Vector2>());
+				Shoot(ctx.ReadValue<Vector2>());
+			};
 			controls.Player.Trap.performed += ctx => PlaceTrap();
 
 			controls.Player.Move.performed -= Calibrate;
 		}
 	}
 
+	private void ChangeSpriteDirection(Vector2 direction)
+    {
+		Vector2 up = new Vector2(0, 1);
+		Vector2 down = new Vector2(0, -1);
+		Vector2 right = new Vector2(1, 0);
+		Vector2 left = new Vector2(-1, 0);
+
+		SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+		// don't flip by default
+		sr.flipX = false;
+		if (direction == up)
+        {
+            sr.sprite = backSprite;
+        }
+        if (direction == down)
+        {
+            sr.sprite = frontSprite;
+        }
+        if (direction == right)
+        {
+            sr.sprite = leftSprite;
+			sr.flipX = true;
+        }
+        if (direction == left)
+        {
+            sr.sprite = leftSprite;
+        }
+    }
+
     private void PlaceTrap()
     {
-        GameObject newTrap = Instantiate(trapPrefab);
-		newTrap.transform.position = transform.position;
+		if (Menu.isPaused || moving) return;
 
 		// TODO: Notify the player somehow??
 		if (energyBar.Energy > 6)
         {
+			GameObject newTrap = Instantiate(trapPrefab);
+			newTrap.transform.position = transform.position;
+
 			energyBar.Energy -= 5;
 			if (energyBar.Energy <= 0)
 			{
@@ -147,7 +192,7 @@ public class Player : MonoBehaviour
 
 	private void Move(Vector2 direction)
 	{
-		if (Menu.isPaused) return;
+		if (Menu.isPaused || moving) return;
 
 		HitFeedback feedback = Conductor.Instance.CheckBeatAccuracy();
 
