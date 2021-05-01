@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
 {
 	private ControlsInput controls;
 
-	public enum Control	{ UP, DOWN, LEFT, RIGHT, SHOOT, JUMP }
-
 	//movement
 	//Vector2 direction;
 	public static Vector2 Forward;
@@ -19,6 +17,7 @@ public class Player : MonoBehaviour
 	public GameObject projectilePrefab;
 
 	public EnergyBar energyBar;
+	public UnityEngine.UI.Image energyBarFill;
 
 	public GameObject trapPrefab;
 
@@ -28,15 +27,6 @@ public class Player : MonoBehaviour
 
 	//int hp;
 	public int maxDamage = 2;
-
-	//controlls for easier editting
-	//public Dictionary<Control, KeyCode> controls = new Dictionary<Control, KeyCode>(){
-	//	{Control.UP, KeyCode.UpArrow},
-	//	{Control.DOWN, KeyCode.DownArrow},
-	//	{Control.LEFT, KeyCode.LeftArrow},
-	//	{Control.RIGHT, KeyCode.RightArrow},
-	//	{Control.SHOOT, KeyCode.Space}
-	//};
 
 	private void Awake()
 	{
@@ -61,15 +51,8 @@ public class Player : MonoBehaviour
 
 		controls.Player.Move.performed += Calibrate;
 		controls.Player.ToggleGUI.performed += (_) => Conductor.Instance.showGUI = !Conductor.Instance.showGUI;
+		energyBarFill = energyBar.gameObject.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>();
 	}
-
-	//void Move()
-	//{
-	//	//Movement stuff
-	//	int beatAccuracy = (int)conductor.CheckBeatAccuracy();
-	//	energy += 3-beatAccuracy;
-	//	transform.position += (Vector3)direction * speed;
-	//}
 
 	/// <summary>
 	/// Shoots a projectile in the direction the player is facing with damage corresponding to the beat accuracy.
@@ -241,7 +224,46 @@ public class Player : MonoBehaviour
 	void Update()
 	{
 		if (moving) LerpMovement();
+
+		float secPerBeat = Conductor.Instance.secondsPerBeat;
+		float secondsSinceLastBeat = Conductor.Instance.songPosition - Conductor.Instance.lastBeatSeconds;
+		float brightness = Mathf.Pow(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI), .5f);
+
+		//I originally tried this, but it's hard to feel the beat with. 
+		//if yall still want it pick this one, but otherwise I think the one-color pulse looks better
+		#region optionOneRainbow
+		//int beatsSoFar = (int)(Conductor.Instance.songPosition / Conductor.Instance.secondsPerBeat);
+
+		//energyBarFill.color = new Color(
+		//	brightness * ((beatsSoFar % 3) == 0 ? 0 : 1),
+		//	brightness * ((beatsSoFar % 3) == 1 ? 0 : 1),
+		//	brightness * ((beatsSoFar % 3) == 2 ? 0 : 1)
+		//);
+
+		//GetComponent<SpriteRenderer>().color = new Color(
+		//	1-brightness * ((beatsSoFar % 3) == 0 ? 0 : 1),
+		//	1-brightness * ((beatsSoFar % 3) == 1 ? 0 : 1),
+		//	1-brightness * ((beatsSoFar % 3) == 2 ? 0 : 1)
+		//);
+		#endregion
+
+		#region optionTwoPulse
+		//pulses from white to blue (blue is on-beat)
+		energyBarFill.color = new Color(
+			brightness * (.5f),
+			brightness * (.5f),
+			255
+		);
+
+		//pulses from blue to normal color (blue is on-beat)
+		GetComponent<SpriteRenderer>().color = new Color(
+			brightness,
+			brightness,
+			255
+		);
+		#endregion
 	}
+
 
 	// Fields needed for movement
 	private bool moving = false;

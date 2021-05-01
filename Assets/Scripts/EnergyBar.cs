@@ -17,8 +17,27 @@ public class EnergyBar : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
+	private Vector3 baseScale;
+
+	private const float maxScaleIncrease = .1f;
+
+	//private float baseWidth;
+	//private float baseHeight;
+
     private void Start()
     {
         slider.value = slider.maxValue;
+
+		//baseWidth = GetComponent<RectTransform>().rect.width;
+		//baseHeight = GetComponent<RectTransform>().rect.height;
+		baseScale = GetComponent<RectTransform>().localScale;
     }
+	private void Update()
+	{
+		float secPerBeat = Conductor.Instance.secondsPerBeat;
+		float secondsSinceLastBeat = Conductor.Instance.songPosition - Conductor.Instance.lastBeatSeconds;
+		float trigPercent = 1 - Mathf.Sqrt(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI));
+
+		GetComponent<RectTransform>().localScale = new Vector2(baseScale.x + trigPercent * maxScaleIncrease, baseScale.y + trigPercent * maxScaleIncrease);
+	}
 }
