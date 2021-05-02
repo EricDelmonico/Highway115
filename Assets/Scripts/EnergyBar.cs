@@ -38,6 +38,7 @@ public class EnergyBar : MonoBehaviour
 		float secondsSinceLastBeat = Conductor.Instance.songPosition - Conductor.Instance.lastBeatSeconds;
 		float trigPercent = 1 - Mathf.Sqrt(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI));
 
-		GetComponent<RectTransform>().localScale = new Vector2(baseScale.x + trigPercent * maxScaleIncrease, baseScale.y + trigPercent * maxScaleIncrease);
+		if(!double.IsNaN(trigPercent))
+			GetComponent<RectTransform>().localScale = new Vector2(baseScale.x + trigPercent * maxScaleIncrease, baseScale.y + trigPercent * maxScaleIncrease);
 	}
 }

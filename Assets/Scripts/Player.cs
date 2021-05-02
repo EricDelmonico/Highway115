@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
 	public Sprite leftSprite;
 	public Sprite backSprite;
 
+	private List<ParticleSystem> particles;
+
 	//int hp;
 	public int maxDamage = 2;
 
@@ -52,6 +54,13 @@ public class Player : MonoBehaviour
 		controls.Player.Move.performed += Calibrate;
 		controls.Player.ToggleGUI.performed += (_) => Conductor.Instance.showGUI = !Conductor.Instance.showGUI;
 		energyBarFill = energyBar.gameObject.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>();
+		particles = new List<ParticleSystem>()
+		{
+			transform.GetChild(3).GetComponent<ParticleSystem>(),
+			transform.GetChild(1).GetComponent<ParticleSystem>(),
+			transform.GetChild(2).GetComponent<ParticleSystem>(),
+			transform.GetChild(1).GetComponent<ParticleSystem>()
+		};
 	}
 
 	/// <summary>
@@ -179,7 +188,9 @@ public class Player : MonoBehaviour
 
 		HitFeedback feedback = Conductor.Instance.CheckBeatAccuracy();
 
-        switch (feedback)
+		particles[(int)feedback].Play();
+
+		switch (feedback)
         {
 			case HitFeedback.Perfect:
 				energyBar.Energy += 4;
@@ -228,6 +239,7 @@ public class Player : MonoBehaviour
 		float secPerBeat = Conductor.Instance.secondsPerBeat;
 		float secondsSinceLastBeat = Conductor.Instance.songPosition - Conductor.Instance.lastBeatSeconds;
 		float brightness = Mathf.Pow(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI), .5f);
+
 
 		//I originally tried this, but it's hard to feel the beat with. 
 		//if yall still want it pick this one, but otherwise I think the one-color pulse looks better
