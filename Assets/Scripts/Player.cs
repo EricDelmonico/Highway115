@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	private Tilemap props;
 
-	private void Calibrate(UnityEngine.InputSystem.InputAction.CallbackContext _)
+	private void Calibrate(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		if (Menu.isPaused) return;
 
@@ -139,6 +139,10 @@ public class Player : MonoBehaviour
 			controls.Player.Trap.performed += ctx => PlaceTrap();
 
 			controls.Player.Move.performed -= Calibrate;
+
+			// Move since calibration is done
+			ChangeSpriteDirection(context.ReadValue<Vector2>());
+			Move(context.ReadValue<Vector2>());
 		}
 	}
 

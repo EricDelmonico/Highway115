@@ -52,9 +52,9 @@ public class Conductor : MonoBehaviour
     public float songPosition; // in seconds
     public float timeWhenSongStarted;
     public AudioSource musicSource;
-    public float beatOffset; // Calibrated by the player
+    public static float beatOffset = 0; // Calibrated by the player
     public float lastBeatSeconds; // The time since song start at which the previous beat occured
-    public List<float> validationNums;
+    public static List<float> validationNums = new List<float>();
 
     // Same thing as allowed times but for "perfect"
     private float perfectLateTime;
@@ -86,8 +86,6 @@ public class Conductor : MonoBehaviour
 
         //Start the music
         musicSource.Play();
-
-        validationNums = new List<float>();
 
         lastBeatSeconds = 0;
 
@@ -134,10 +132,14 @@ public class Conductor : MonoBehaviour
     /// <returns>true if calibration is finished</returns>
     public bool CalibrateOffset()
     {
+        // If this is true, calibration is already done.
+        if (validationNums.Count == beatsForCalibration) 
+            return true;
+
         if (validationNums.Count < beatsForCalibration)
         {
             float diff;
-            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
+            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted);
             diff = songPosition - lastBeatSeconds;
             validationNums.Add(diff);
             return false;
