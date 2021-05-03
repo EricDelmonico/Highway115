@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class EndTile : MonoBehaviour
 {
-    public Boss boss;
     public bool levelEnded;
 
-    // Update is called once per frame
-    void Update()
+    public void Show()
     {
-        // doesn't seem to trigger, not sure is it because the boss is gone or due to gameObject not being active from start
-        if (boss.health <= 0)
-        {
-            gameObject.SetActive(true);
-        }
+        gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

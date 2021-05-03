@@ -128,9 +128,9 @@ MonoBehaviour:
   props: {fileID: 0}
   player: {fileID: 0}
   projectilePrefab: {fileID: 1037671970830868507, guid: fd04a0f95aff09e4a81701371e3c90a6, type: 3}
-  projectileRange: 200
-  aggroRange: 0
-  health: 0
+  projectileRange: 2
+  aggroRange: 5
+  health: 3
   power: 3
   beatsBetweenActions: 2
   targetPosition: {x: 0, y: 0}

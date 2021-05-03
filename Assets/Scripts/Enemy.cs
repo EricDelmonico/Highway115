@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour
     public int projectileRange;
     public int aggroRange;
 
-    public int health;
+    [SerializeField]
+    private int health;
 
     public int power = 3;
 
@@ -203,7 +204,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Called when this enemy dies.
     /// </summary>
-    protected void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }

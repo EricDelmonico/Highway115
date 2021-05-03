@@ -220,7 +220,7 @@ public class Conductor : MonoBehaviour
         return total / nums.Count;
     }
 
-    public bool showGUI = true;
+    public bool showGUI = false;
     /// <summary>
     /// Some simple UI for debug purposes
     /// </summary>

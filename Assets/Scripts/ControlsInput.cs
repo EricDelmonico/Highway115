@@ -27,14 +27,6 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Shoot"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""80ddf881-50d7-42ad-b627-068b1b8a214a"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""NormalizeVector2"",
-                    ""interactions"": ""Press""
-                },
-                {
                     ""name"": ""PauseGame"",
                     ""type"": ""Button"",
                     ""id"": ""b4935c4b-56d6-4053-a2cc-43aee9ee6fac"",
@@ -54,6 +46,14 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""name"": ""ToggleGUI"",
                     ""type"": ""Button"",
                     ""id"": ""66d026ea-074b-4662-8c14-49b462f9aab8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShootStraight"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc9fc792-a9e0-4419-920d-293729bd0f2e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -116,61 +116,6 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Shoot Keys"",
-                    ""id"": ""c94c9ac5-12e1-424a-b043-21e3f2e259b4"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""a2c25935-b855-40a8-bbd5-68a56d039ad5"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""bab0d13a-3398-48a3-b45f-09094366be42"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""70621df0-fa14-457d-b9e2-6444e5e6fd51"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""ef21c350-32bd-40e1-8ead-8f70b47691e5"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""3a40d23c-44c8-4703-9039-a74f54dce683"",
                     ""path"": ""<Keyboard>/escape"",
@@ -184,7 +129,7 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3476dbe8-f50f-4392-827c-ee6599bdb68c"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -202,6 +147,17 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                     ""action"": ""ToggleGUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12fe1173-f0de-473e-8269-554551794376"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootStraight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,10 +167,10 @@ public class @ControlsInput : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         m_Player_Trap = m_Player.FindAction("Trap", throwIfNotFound: true);
         m_Player_ToggleGUI = m_Player.FindAction("ToggleGUI", throwIfNotFound: true);
+        m_Player_ShootStraight = m_Player.FindAction("ShootStraight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -265,19 +221,19 @@ public class @ControlsInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_PauseGame;
     private readonly InputAction m_Player_Trap;
     private readonly InputAction m_Player_ToggleGUI;
+    private readonly InputAction m_Player_ShootStraight;
     public struct PlayerActions
     {
         private @ControlsInput m_Wrapper;
         public PlayerActions(@ControlsInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
         public InputAction @Trap => m_Wrapper.m_Player_Trap;
         public InputAction @ToggleGUI => m_Wrapper.m_Player_ToggleGUI;
+        public InputAction @ShootStraight => m_Wrapper.m_Player_ShootStraight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,9 +246,6 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @PauseGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
@@ -302,6 +255,9 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @ToggleGUI.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleGUI;
                 @ToggleGUI.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleGUI;
                 @ToggleGUI.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleGUI;
+                @ShootStraight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShootStraight;
+                @ShootStraight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShootStraight;
+                @ShootStraight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShootStraight;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -309,9 +265,6 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
@@ -321,6 +274,9 @@ public class @ControlsInput : IInputActionCollection, IDisposable
                 @ToggleGUI.started += instance.OnToggleGUI;
                 @ToggleGUI.performed += instance.OnToggleGUI;
                 @ToggleGUI.canceled += instance.OnToggleGUI;
+                @ShootStraight.started += instance.OnShootStraight;
+                @ShootStraight.performed += instance.OnShootStraight;
+                @ShootStraight.canceled += instance.OnShootStraight;
             }
         }
     }
@@ -328,9 +284,9 @@ public class @ControlsInput : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
         void OnTrap(InputAction.CallbackContext context);
         void OnToggleGUI(InputAction.CallbackContext context);
+        void OnShootStraight(InputAction.CallbackContext context);
     }
 }

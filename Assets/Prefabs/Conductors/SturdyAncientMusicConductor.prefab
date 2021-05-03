@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 573457635358719271}
   - component: {fileID: 573457635358719269}
   - component: {fileID: 573457635358719270}
-  - component: {fileID: 3714948259488210848}
   m_Layer: 0
   m_Name: SturdyAncientMusicConductor
   m_TagString: Untagged
@@ -54,9 +53,8 @@ MonoBehaviour:
   songPosition: 0
   timeWhenSongStarted: 0
   musicSource: {fileID: 0}
-  beatOffset: 0
   lastBeatSeconds: 0
-  validationNums: []
+  showGUI: 0
 --- !u!82 &573457635358719270
 AudioSource:
   m_ObjectHideFlags: 0
@@ -153,15 +151,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3714948259488210848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573457635358719320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0de25ecaa3d7d3348bce3f7614a61374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

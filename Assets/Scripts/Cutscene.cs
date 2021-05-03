@@ -72,7 +72,7 @@ public class Cutscene : MonoBehaviour
         {
             if(isIntro)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
             }
         }
     }

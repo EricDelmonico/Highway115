@@ -4,9 +4,19 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
+public enum Direction
+{
+	Up,
+	Down,
+	Left,
+	Right
+}
+
 public class Player : MonoBehaviour
 {
 	private ControlsInput controls;
+
+	private Direction direction;
 
 	//movement
 	//Vector2 direction;
@@ -84,6 +94,25 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private void ShootInCurrentDirection(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+		switch (direction)
+        {
+			case Direction.Up:
+				Shoot(new Vector2(0, 1));
+				break;
+			case Direction.Down:
+				Shoot(new Vector2(0, -1));
+				break;
+			case Direction.Left:
+				Shoot(new Vector2(-1, 0));
+				break;
+			case Direction.Right:
+				Shoot(new Vector2(1, 0));
+				break;
+		}
+	}
+
 	public void TakeDamage(int damage)
 	{
 		energyBar.Energy -= damage;
@@ -97,7 +126,7 @@ public class Player : MonoBehaviour
 	void Die()
 	{
 		//dies--load game over
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene("GameOver");
 	}
 
 	#region Player Movement
@@ -123,11 +152,7 @@ public class Player : MonoBehaviour
 				ChangeSpriteDirection(ctx.ReadValue<Vector2>());
 				Move(ctx.ReadValue<Vector2>());
 			};
-			controls.Player.Shoot.performed += ctx =>
-			{
-				ChangeSpriteDirection(ctx.ReadValue<Vector2>());
-				Shoot(ctx.ReadValue<Vector2>());
-			};
+			controls.Player.ShootStraight.performed += ShootInCurrentDirection;
 			controls.Player.Trap.performed += ctx => PlaceTrap();
 
 			controls.Player.Move.performed -= Calibrate;
@@ -138,34 +163,48 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void ChangeSpriteDirection(Vector2 direction)
+	private void ChangeSpriteDirection(Vector2 vecDirection)
     {
-		Vector2 up = new Vector2(0, 1);
-		Vector2 down = new Vector2(0, -1);
-		Vector2 right = new Vector2(1, 0);
-		Vector2 left = new Vector2(-1, 0);
+		// Change direction
+		if (vecDirection == new Vector2(0, 1))
+		{
+			direction = Direction.Up;
+		}
+		if (vecDirection == new Vector2(0, -1))
+		{
+			direction = Direction.Down;
+		}
+		if (vecDirection == new Vector2(1, 0))
+		{
+			direction = Direction.Right;
+		}
+		if (vecDirection == new Vector2(-1, 0))
+		{
+			direction = Direction.Left;
+		}
 
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
 		// don't flip by default
 		sr.flipX = false;
-		if (direction == up)
+        
+		// Change sprite
+		switch (direction)
         {
-            sr.sprite = backSprite;
-        }
-        if (direction == down)
-        {
-            sr.sprite = frontSprite;
-        }
-        if (direction == right)
-        {
-            sr.sprite = leftSprite;
-			sr.flipX = true;
-        }
-        if (direction == left)
-        {
-            sr.sprite = leftSprite;
-        }
+			case Direction.Up:
+				sr.sprite = backSprite;
+				break;
+			case Direction.Down:
+				sr.sprite = frontSprite;
+				break;
+			case Direction.Left:
+				sr.sprite = leftSprite;
+				break;
+			case Direction.Right:
+				sr.sprite = leftSprite;
+				sr.flipX = true;
+				break;
+		}
     }
 
     private void PlaceTrap()

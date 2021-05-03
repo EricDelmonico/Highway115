@@ -17,6 +17,8 @@ public class Boss : Enemy
 
     public int alertRadius;
 
+    public EndTile endTile;
+
     protected override void Start()
     {
         // Fill unit circle directions
@@ -65,6 +67,12 @@ public class Boss : Enemy
         }
 
         currentBeatsUntlBossAction--;
+    }
+
+    protected override void Die()
+    {
+        endTile.Show();
+        base.Die();
     }
 
     private void TakeBossAction(BossAction action)
