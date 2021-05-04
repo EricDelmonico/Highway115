@@ -326,16 +326,17 @@ MonoBehaviour:
       m_Action: Next
       m_Flags: 0
   mainSprites:
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
-  - {fileID: 21300000, guid: f9e46b780ea2f9145a42ebfb98923ede, type: 3}
+  - {fileID: 21300000, guid: a0aff3c0588e0e845bbdf309f3e2800b, type: 3}
+  - {fileID: 21300000, guid: b20ca02e568410945b5a137b0bb97ebf, type: 3}
+  - {fileID: 21300000, guid: f34fdbd2171fe3b4a9c000e9eea6cffd, type: 3}
+  - {fileID: 21300000, guid: a441e2a345046ce488d28aa433bcfaab, type: 3}
+  - {fileID: 21300000, guid: c14e8413c7b5a1b468bb0325fd879ada, type: 3}
+  - {fileID: 21300000, guid: 944a807180bfcfe4997d14bd1e9d2bc7, type: 3}
+  - {fileID: 21300000, guid: 36c2d7e4f9612504ba46c254833ef475, type: 3}
   spriteLoop:
-  - {fileID: 21300000, guid: 17c08d990c5b89d4da3cb3c0a562b210, type: 3}
-  - {fileID: 21300000, guid: b6a7a391335363a4399d9c8003b69d89, type: 3}
+  - {fileID: 21300000, guid: 1551fbc089212484a82e2f2ed66f4826, type: 3}
+  - {fileID: 21300000, guid: 4bd659063af311740b60feff28e74a95, type: 3}
+  - {fileID: 21300000, guid: 6fdf66299084b1141b60f0f4d80599ee, type: 3}
   isIntro: 1
 --- !u!114 &1241145080
 MonoBehaviour:
