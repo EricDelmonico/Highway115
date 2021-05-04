@@ -258,6 +258,85 @@ PrefabInstance:
       objectReference: {fileID: 573457635358719320, guid: 27a9f57d0d0a81142a06322a0bcb149e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cf272c5399e4224fa60bcbc8b375eff, type: 3}
+--- !u!1 &492143802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492143803}
+  - component: {fileID: 492143805}
+  - component: {fileID: 492143804}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &492143803
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492143802}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1286339171}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 674.10815, y: 90.55903}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &492143804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492143802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.83921576, g: 0.32156864, b: 0.41176474, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_FontSize: 36
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: HIT SPACEBAR TO THE BEAT TO TRAVEL BACK IN TIME!
+--- !u!222 &492143805
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492143802}
+  m_CullTransparentMesh: 0
 --- !u!1 &1241145077
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,22 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac7c93175554b44599af76a33449145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  next:
-    m_Name: Next
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 23fff045-ac0c-47c2-a90e-88b71c84d697
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 20ec9832-daf2-49f2-9aef-656cac12d42c
-      m_Path: <Keyboard>/space
-      m_Interactions: Tap
-      m_Processors: 
-      m_Groups: 
-      m_Action: Next
-      m_Flags: 0
   mainSprites:
   - {fileID: 21300000, guid: a0aff3c0588e0e845bbdf309f3e2800b, type: 3}
   - {fileID: 21300000, guid: b20ca02e568410945b5a137b0bb97ebf, type: 3}
@@ -337,6 +400,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1551fbc089212484a82e2f2ed66f4826, type: 3}
   - {fileID: 21300000, guid: 4bd659063af311740b60feff28e74a95, type: 3}
   - {fileID: 21300000, guid: 6fdf66299084b1141b60f0f4d80599ee, type: 3}
+  toTheBeatText: {fileID: 492143802}
   isIntro: 1
 --- !u!114 &1241145080
 MonoBehaviour:
@@ -388,8 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 4
-  m_AspectRatio: 1.414
+  m_AspectMode: 3
+  m_AspectRatio: 1.592535
 --- !u!1 &1286339167
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +529,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -481,6 +545,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1241145078}
+  - {fileID: 492143803}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -525,7 +590,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -26,7 +26,7 @@ public class Conductor : MonoBehaviour
     /// <summary>
     /// The existing conductor
     /// </summary>
-    public static Conductor Instance => instance ?? 
+    public static Conductor Instance => instance ??
         throw new System.InvalidOperationException("Conductor was never created. " +
             "Check ConductorCreator or add one to the scene if one doesn't exist.");
 
@@ -52,9 +52,13 @@ public class Conductor : MonoBehaviour
     public float songPosition; // in seconds
     public float timeWhenSongStarted;
     public AudioSource musicSource;
-    public static float beatOffset = 0; // Calibrated by the player
+    private static float? beatOffset; // Calibrated by the player
+    public float BeatOffset
+    {
+        get => beatOffset ?? 0;
+    }
     public float lastBeatSeconds; // The time since song start at which the previous beat occured
-    public static List<float> validationNums = new List<float>();
+    public List<float> validationNums;
 
     // Same thing as allowed times but for "perfect"
     private float perfectLateTime;
@@ -87,6 +91,8 @@ public class Conductor : MonoBehaviour
         //Start the music
         musicSource.Play();
 
+        validationNums = new List<float>();
+
         lastBeatSeconds = 0;
 
         // Subject to change...
@@ -110,7 +116,7 @@ public class Conductor : MonoBehaviour
         if (!Menu.isPaused)
         {
             //determine how many seconds since the song started
-            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
+            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - BeatOffset);
 
             // If this is true, a beat happened
             if (songPosition > lastBeatSeconds + secondsPerBeat)
@@ -132,27 +138,25 @@ public class Conductor : MonoBehaviour
     /// <returns>true if calibration is finished</returns>
     public bool CalibrateOffset()
     {
-        // If this is true, calibration is already done.
-        if (validationNums.Count == beatsForCalibration) 
+        if (beatOffset != null) 
             return true;
 
         if (validationNums.Count < beatsForCalibration)
         {
             float diff;
-            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted);
+            songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - BeatOffset);
             diff = songPosition - lastBeatSeconds;
             validationNums.Add(diff);
-            return false;
+            Debug.Log($"Calibrating {diff}");
         }
         // Calibration is finished
         else
         {
-            beatOffset = Avg(validationNums);
-
-            // TODO?: Clear so calibration can be done again whenever
-            //validationNums.Clear();
-            return true;
+            beatOffset = IgnoreOutliersAvg(validationNums);
         }
+
+        // If beatoffset has a value, return true
+        return beatOffset != null;
     }
 
     /// <summary>
@@ -162,7 +166,7 @@ public class Conductor : MonoBehaviour
     /// <returns>Feedback on the accuracy of the action</returns>
     public HitFeedback CheckBeatAccuracy()
     {
-        songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - beatOffset);
+        songPosition = (float)(AudioSettings.dspTime - timeWhenSongStarted - BeatOffset);
         float diff = songPosition - lastBeatSeconds;
 
         // If the player was less than 1/4 beat off, the hit was good
@@ -220,7 +224,30 @@ public class Conductor : MonoBehaviour
         return total / nums.Count;
     }
 
-    public bool showGUI = false;
+    /// <summary>
+    /// Only should use when calibration beat number is divisible by 5
+    /// </summary>
+    /// <returns></returns>
+    private float IgnoreOutliersAvg(List<float> nums)
+    {
+        nums.Sort();
+        int numToRemove = nums.Count / 5;
+        return Avg(nums.GetRange(numToRemove, nums.Count - (numToRemove * 2)));
+    }
+
+    private float Median(List<float> nums)
+    {
+        if (nums.Count % 2 == 1)
+        {
+            return nums[nums.Count / 2];
+        }
+        else
+        {
+            return Avg(nums.GetRange((nums.Count / 2) - 1, 2));
+        }
+    }
+
+    public bool showGUI = true;
     /// <summary>
     /// Some simple UI for debug purposes
     /// </summary>
@@ -230,7 +257,7 @@ public class Conductor : MonoBehaviour
         {
             GUI.BeginGroup(new Rect(0, 0, 500, 200));
             GUI.Label(new Rect(0, 50, 500, 200), $"<size=20>{feedback.ToString()}</size>");
-            GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {Avg(validationNums)}</size>");
+            GUI.Label(new Rect(0, 100, 500, 100), $"<size=20>Calibration: {beatsForCalibration - validationNums.Count}. Offset: {beatOffset}</size>");
             GUI.Label(new Rect(0, 150, 500, 100), $"<size=20>Last beat seconds: {lastBeatSeconds}. </size>");
             GUI.EndGroup();
         }

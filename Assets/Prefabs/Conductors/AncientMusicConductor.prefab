@@ -47,13 +47,14 @@ MonoBehaviour:
   bpm: 150
   allowedEarlyTime: 0.05
   allowedLateTime: 0.05
-  beatsForCalibration: 5
+  beatsForCalibration: 10
   secondsToMove: 0.1
   secondsPerBeat: 0
   songPosition: 0
   timeWhenSongStarted: 0
   musicSource: {fileID: 0}
   lastBeatSeconds: 0
+  validationNums: []
   showGUI: 0
 --- !u!82 &4008838127738875813
 AudioSource:

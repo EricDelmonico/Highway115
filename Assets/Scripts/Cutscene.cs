@@ -9,14 +9,20 @@ public class Cutscene : MonoBehaviour
     //private ControlsInput controls;
     //public enum Control { NEXT }
 
-    public InputAction next;
+    public IntroControls nextSprite;
     
     public Sprite[] mainSprites;
     public Sprite[] spriteLoop;
+    public GameObject toTheBeatText;
     public bool isIntro;
     private int currentMainSpriteNum = 0;
     private int currentLoopSpriteNum = 0;
-    
+
+    private void Awake()
+    {
+        nextSprite = new IntroControls();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +31,7 @@ public class Cutscene : MonoBehaviour
             Debug.Log("There aren't any sprites in the sprite list");
         }
         NextImage();
-        next.performed += _ => NextImage();
+        nextSprite.Intro.NextImage.performed += _ => NextImage();
     }
     
     /// <summary>
@@ -47,21 +53,25 @@ public class Cutscene : MonoBehaviour
             transform.GetComponent<UnityEngine.UI.Image>().sprite = spriteLoop[currentLoopSpriteNum];
             currentLoopSpriteNum++;
         }
+        if (currentMainSpriteNum == mainSprites.Length)
+        {
+            toTheBeatText.SetActive(true);
+        }
         if (currentMainSpriteNum == mainSprites.Length + 1)
         {
-            next.performed += Calibrate;
+            nextSprite.Intro.NextImage.performed += Calibrate;
         }
         currentMainSpriteNum++;
     }
     
     void OnEnable()
     {
-        next.Enable();
+        nextSprite.Enable();
     }
     
     void OnDisable()
     {
-        next.Disable();
+        nextSprite.Disable();
     }
 
     private void Calibrate(UnityEngine.InputSystem.InputAction.CallbackContext _)
@@ -72,6 +82,7 @@ public class Cutscene : MonoBehaviour
         {
             if(isIntro)
             {
+                nextSprite.Disable();
                 SceneManager.LoadScene(2);
             }
         }
