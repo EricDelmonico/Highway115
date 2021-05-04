@@ -255,7 +255,7 @@ PrefabInstance:
     - target: {fileID: 6712116521562457467, guid: 0cf272c5399e4224fa60bcbc8b375eff, type: 3}
       propertyPath: conductorPrefab
       value: 
-      objectReference: {fileID: 573457635358719320, guid: 27a9f57d0d0a81142a06322a0bcb149e, type: 3}
+      objectReference: {fileID: 4008838127738875867, guid: 34607b4cf0626684b884f960c1244ffe, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cf272c5399e4224fa60bcbc8b375eff, type: 3}
 --- !u!1 &492143802
