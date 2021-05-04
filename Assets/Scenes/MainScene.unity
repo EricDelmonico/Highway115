@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 5325256947531442999}
-  energyBar: {fileID: 0}
+  energyBar: {fileID: 962027335}
 --- !u!224 &962027334 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 716907417732238471, guid: 1b546f60321ac264ca75e89ac6c44c0c, type: 3}

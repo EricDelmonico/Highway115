@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 5325256947531442999}
-  energyBar: {fileID: 0}
+  energyBar: {fileID: 302179487}
 --- !u!1001 &940797578
 PrefabInstance:
   m_ObjectHideFlags: 0
