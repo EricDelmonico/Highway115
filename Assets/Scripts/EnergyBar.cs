@@ -19,7 +19,7 @@ public class EnergyBar : MonoBehaviour
 
 	private Vector3 baseScale;
 
-	private const float maxScaleIncrease = .1f;
+	private const float maxScaleIncrease = 2f;
 
 	//private float baseWidth;
 	//private float baseHeight;
@@ -31,14 +31,15 @@ public class EnergyBar : MonoBehaviour
 		//baseWidth = GetComponent<RectTransform>().rect.width;
 		//baseHeight = GetComponent<RectTransform>().rect.height;
 		baseScale = GetComponent<RectTransform>().localScale;
-    }
+		transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector2(baseScale.x, baseScale.y + maxScaleIncrease);
+	}
 	private void Update()
 	{
 		float secPerBeat = Conductor.Instance.secondsPerBeat;
 		float secondsSinceLastBeat = Conductor.Instance.songPosition - Conductor.Instance.lastBeatSeconds;
-		float trigPercent = 1 - Mathf.Sqrt(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI));
+		float trigPercent = /*1 - */Mathf.Sqrt(Mathf.Sin(secondsSinceLastBeat / secPerBeat * Mathf.PI));
 
 		if(!double.IsNaN(trigPercent))
-			GetComponent<RectTransform>().localScale = new Vector2(baseScale.x + trigPercent * maxScaleIncrease, baseScale.y + trigPercent * maxScaleIncrease);
+			transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector2(baseScale.x/*baseScale.x + trigPercent * maxScaleIncrease*/, baseScale.y + trigPercent * maxScaleIncrease);
 	}
 }
