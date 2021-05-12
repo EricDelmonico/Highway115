@@ -58,7 +58,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Forward = new Vector2(0, 1);
+		PlayerPrefs.SetInt("lastLevel", SceneManager.GetActiveScene().buildIndex);
+
+		Forward = new Vector2(0, 1);
         right = new Vector2(Forward.y, Forward.x);
 
 		controls.Player.Move.performed += Calibrate;

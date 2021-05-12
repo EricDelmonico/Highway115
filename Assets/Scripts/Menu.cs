@@ -10,10 +10,6 @@ public class Menu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenu;
     public EnergyBar energyBar;
-    //public GameObject gameOverMenu;
-    //public GameObject instructionsMenu;
-    //public GameObject enemiesMenu;
-    //public GameObject controlsMenu;
     // public TextMeshProUGUI scoreText;
 
     private void Awake()
@@ -72,9 +68,6 @@ public class Menu : MonoBehaviour
     public void Resume()
     {
         pauseMenu.SetActive(false);
-        //instructionsMenu.SetActive(false);
-        //enemiesMenu.SetActive(false);
-        //controlsMenu.SetActive(false);
         Time.timeScale = 1f;
         energyBar.gameObject.SetActive(true);
         isPaused = false;
@@ -89,8 +82,9 @@ public class Menu : MonoBehaviour
 
     public void Restart()
     {		
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	}
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(PlayerPrefs.GetInt("lastLevel"));
+    }
 
     public void QuitGame()
     {
