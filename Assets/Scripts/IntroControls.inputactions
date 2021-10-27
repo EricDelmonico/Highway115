@@ -1,0 +1,33 @@
+{
+    "name": "IntroControls",
+    "maps": [
+        {
+            "name": "Intro",
+            "id": "27eda1f8-3084-4a3c-9a2a-48e2de8de033",
+            "actions": [
+                {
+                    "name": "NextImage",
+                    "type": "Button",
+                    "id": "aa82c965-1c50-4dfd-9693-be5a7c068bc1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aeac231f-7da7-4641-ac3a-4247eb4bd463",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextImage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
